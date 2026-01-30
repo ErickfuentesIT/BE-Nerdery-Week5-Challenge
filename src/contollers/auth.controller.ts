@@ -28,7 +28,7 @@ export async function forgotPassword(
   const { email } = req.body;
   const resetToken = await AuthService.forgotPassword(email);
   res.status(200).json({
-    message: `If an account exists, you will receive an email with a password ${resetToken}`,
+    message: `If an account exists, you will receive an email with a password. SECRET: ${resetToken}`,
   });
 }
 

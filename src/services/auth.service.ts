@@ -34,7 +34,10 @@ export class AuthService {
     });
   }
 
-  static async signin(body: SignInDto) {
+  static async signin(body: SignInDto): Promise<{
+    user: UserDto;
+    token: string;
+  }> {
     const user = await prisma.user.findUnique({
       where: { email: body.email },
     });
@@ -45,7 +48,7 @@ export class AuthService {
     const token = jwt.sign(
       { userId: user.id, role: user.role },
       process.env.JWT_SECRET as string,
-      { expiresIn: "1d" },
+      { expiresIn: "1d" }, // Token expires in 1 day
     );
 
     await prisma.user.update({
@@ -77,7 +80,7 @@ export class AuthService {
       .update(resetToken)
       .digest("hex");
 
-    const tokenExpiration = new Date(Date.now() + 600000);
+    const tokenExpiration = new Date(Date.now() + 600000); // One Time Token expires in 10 minutes
 
     await prisma.user.update({
       where: { id: user.id },
