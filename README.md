@@ -70,4 +70,8 @@ npm run dev
 You can reach out the Postman collection
 ***
 https://www.postman.com/dps777/workspace/nerdery-week5-rest/request/29371382-284fb51c-043a-441b-b035-983124d1ade0?action=share&creator=29371382&ctx=documentation&active-environment=29371382-e940085f-8233-4978-80b3-40d0c648e0b0
+***
+## Fork the workspace and add the environment values
+
+<img width="1355" height="1035" alt="Captura de pantalla 2026-01-30 113422" src="https://github.com/user-attachments/assets/0a57c3b0-9dae-491a-a510-be764c908208" />
 
