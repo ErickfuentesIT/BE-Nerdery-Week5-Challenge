@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { SignUpDto } from "../dtos/auth/requests/signup.dto";
 import { AuthService } from "../services/auth.service";
 import { SignInDto } from "../dtos/auth/requests/signin.dto";
-
+import { AuthRequest } from "../types"; // Import your custom interface
 export async function signup(req: Request, res: Response): Promise<void> {
   const signupData: SignUpDto = req.body;
   const result = await AuthService.signup(signupData);
@@ -15,9 +15,13 @@ export async function signin(req: Request, res: Response): Promise<void> {
   res.status(200).json(result);
 }
 
-export async function signout(req: Request, res: Response): Promise<void> {
-  const user = (req as any).user;
-  await AuthService.signout(user.id);
+export async function signout(req: AuthRequest, res: Response): Promise<void> {
+  const user = req.user;
+  if (!user?.Id) {
+    res.status(400).json({ message: "User ID is required" });
+    return;
+  }
+  await AuthService.signout(Number(user.Id));
   res.status(200).json({ message: "Signed out successfully" });
 }
 
@@ -27,8 +31,9 @@ export async function forgotPassword(
 ): Promise<void> {
   const { email } = req.body;
   const resetToken = await AuthService.forgotPassword(email);
+  console.log(`Demo purposes: ${resetToken}`);
   res.status(200).json({
-    message: `If an account exists, you will receive an email with a password. SECRET: ${resetToken}`,
+    message: `If an account exists, you will receive an email with a password.`,
   });
 }
 

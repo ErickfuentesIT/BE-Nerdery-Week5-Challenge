@@ -1,7 +1,7 @@
 import { SignUpDto } from "../dtos/auth/requests/signup.dto";
 import { plainToInstance } from "class-transformer";
 import { UserDto } from "../dtos/auth/responses/user.dto";
-import { Conflict, Unauthorized } from "http-errors";
+import { BadRequest, Conflict, Unauthorized } from "http-errors";
 import prisma from "../prisma";
 import bcrypt from "bcrypt";
 import { SignInDto } from "../dtos/auth/requests/signin.dto";
@@ -106,7 +106,7 @@ export class AuthService {
       },
     });
 
-    if (!user) throw new Error("Token is invalid or has expired");
+    if (!user) throw new BadRequest("Token is invalid or has expired");
 
     const hashedPassword = await bcrypt.hash(newPassword, 12);
 

@@ -3,10 +3,8 @@ import { plainToInstance } from "class-transformer";
 import { validate } from "class-validator";
 type Dto<T> = { new (): T };
 
-export function validationMiddleware<T extends object>(
-  dtoClass: Dto<T>,
-) {
-  return async function name(
+export function validationMiddleware<T extends object>(dtoClass: Dto<T>) {
+  return async function validateDto(
     req: Request,
     res: Response,
     next: NextFunction,
