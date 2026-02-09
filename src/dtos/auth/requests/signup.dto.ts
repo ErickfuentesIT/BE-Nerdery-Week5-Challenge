@@ -1,4 +1,4 @@
-import { IsEmail, IsString, MinLength } from "class-validator";
+import { IsEmail, IsString, Matches } from "class-validator";
 
 
 export class SignUpDto {
@@ -9,9 +9,8 @@ export class SignUpDto {
   readonly name!: string;
 
   @IsString()
-  readonly role!: string;
-
-  @IsString()
-  @MinLength(4)
+  @Matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/, {
+    message: 'Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character (@$!%*?&)',
+  })
   readonly password!: string;
 }

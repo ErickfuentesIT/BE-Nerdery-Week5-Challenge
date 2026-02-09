@@ -6,7 +6,7 @@ import {
   signout,
   forgotPassword,
   resetPassword,
-} from "../contollers/auth.controller";
+} from "../controllers/auth.controller";
 import { validationMiddleware } from "../middlewares/validation.middleware";
 import { SignUpDto } from "../dtos/auth/requests/signup.dto";
 import { SignInDto } from "../dtos/auth/requests/signin.dto";
